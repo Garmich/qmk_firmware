@@ -7,9 +7,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
   TG(GAME_LY),    KC_W,    KC_Q,    KC_U,    KC_G, TD(COM),                      TD(DOT),    KC_P,    KC_T,    KC_M,    KC_K, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-         KC_Z,    KC_I,    KC_O,    KC_A,    KC_E,    KC_V,                         KC_B,    KC_R,    KC_S,    KC_N,    KC_D,    KC_X,
+         KC_X,    KC_I,    KC_O,    KC_A,    KC_E,    KC_V,                         KC_B,    KC_R,    KC_S,    KC_N,    KC_D,    KC_Z,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      XXXXXXX,    KC_J,     ALT,     TIL,    KC_L,    KC_Y,                         KC_F,    KC_C,     GRV,     CTL,    KC_H, XXXXXXX,
+      XXXXXXX,    KC_J,     CTL,     TIL,    KC_L,    KC_Y,                         KC_F,    KC_C,     GRV,     ALT,    KC_H, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                             KC_ESC, XXXXXXX, LT(NAVI_LY, KC_SPC),       LT(NUM_LY, KC_BSPC), XXXXXXX, KC_CAPS
                                       //`--------------------------'  `--------------------------'
