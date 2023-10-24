@@ -21,41 +21,97 @@ bool process_normal(uint16_t keycode, keyrecord_t *record) {
       } else unregister_code(KC_LALT);
       break;
 
-    case TOP:
+    case KC_UP:
       if (record->event.pressed) {
         if ((get_oneshot_mods() & MOD_LCTL) || (get_mods() & MOD_MASK_CTRL)) {
-          tap_code16(KC_HOME);
-          return false;
-        }
-      }
-      break;
-
-    case LOW:
-      if (record->event.pressed) {
-        if ((get_oneshot_mods() & MOD_LCTL) || (get_mods() & MOD_MASK_CTRL)) {
-          tap_code16(KC_END);
-          return false;
-        }
-      }
-      break;
-
-    case INI:
-      if ((get_oneshot_mods() & MOD_LCTL) || (get_mods() & MOD_LCTL)) {
-        if (record->event.pressed) {
-          del_mods(MOD_LCTL);
-          del_oneshot_mods(MOD_LCTL);
           tap_code(KC_HOME);
           return false;
         }
       }
       break;
 
-    case END:
-      if ((get_oneshot_mods() & MOD_LCTL) || (get_mods() & MOD_LCTL)) {
-        if (record->event.pressed) {
+    case KC_DOWN:
+      if (record->event.pressed) {
+        if ((get_oneshot_mods() & MOD_LCTL) || (get_mods() & MOD_MASK_CTRL)) {
+          tap_code(KC_END);
+          return false;
+        }
+      }
+      break;
+
+    case KC_LEFT:
+      if (record->event.pressed) {
+        if (get_oneshot_mods() & MOD_LCTL) {
+          del_oneshot_mods(MOD_LCTL);
+          tap_code(KC_HOME);
+          return false;
+        }
+        if (get_mods() & MOD_MASK_CTRL) {
           del_mods(MOD_LCTL);
+          tap_code(KC_HOME);
+          add_mods(MOD_LCTL);
+          return false;
+        }
+      }
+      break;
+
+    case KC_RIGHT:
+      if (record->event.pressed) {
+        if (get_oneshot_mods() & MOD_LCTL) {
           del_oneshot_mods(MOD_LCTL);
           tap_code(KC_END);
+          return false;
+        }
+        if (get_mods() & MOD_MASK_CTRL) {
+          del_mods(MOD_LCTL);
+          tap_code(KC_END);
+          add_mods(MOD_LCTL);
+          return false;
+        }
+      }
+      break;
+
+    case KC_PGUP:
+      if (record->event.pressed) {
+        if ((get_oneshot_mods() & MOD_LCTL) || (get_mods() & MOD_MASK_CTRL)) {
+          register_code(KC_UP);
+          return false;
+        }
+      } else {
+        if ((get_oneshot_mods() & MOD_LCTL) || (get_mods() & MOD_MASK_CTRL)) {
+          unregister_code(KC_UP);
+          return false;
+        }
+      }
+      break;
+
+    case KC_PGDN:
+       if (record->event.pressed) {
+        if ((get_oneshot_mods() & MOD_LCTL) || (get_mods() & MOD_MASK_CTRL)) {
+          register_code(KC_DOWN);
+          return false;
+        }
+      } else {
+        if ((get_oneshot_mods() & MOD_LCTL) || (get_mods() & MOD_MASK_CTRL)) {
+          unregister_code(KC_DOWN);
+          return false;
+        }
+      }
+      break;
+
+    case INI:
+      if (record->event.pressed) {
+        if ((get_oneshot_mods() & MOD_LCTL) || (get_mods() & MOD_LCTL)) {
+          tap_code(KC_PGUP);
+          return false;
+        }
+      }
+      break;
+
+    case END:
+      if (record->event.pressed) {
+        if ((get_oneshot_mods() & MOD_LCTL) || (get_mods() & MOD_LCTL)) {
+          tap_code(KC_PGDN);
           return false;
         }
       }
