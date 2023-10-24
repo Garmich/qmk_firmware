@@ -29,13 +29,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
       XXXXXXX, XXXXXXX, XXXXXXX,   KC_UP, XXXXXXX, XXXXXXX,                      XXXXXXX, XXXXXXX,     TOP, XXXXXXX, XXXXXXX, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      XXXXXXX,  SWITCH, KC_LEFT, KC_DOWN,KC_RIGHT, XXXXXXX,                      XXXXXXX,     INI,     LOW,     END, XXXXXXX, XXXXXXX,
+      XXXXXXX,     SFT, KC_LEFT, KC_DOWN,KC_RIGHT, XXXXXXX,                      XXXXXXX,     INI,     LOW,     END,  SWITCH, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      XXXXXXX,     GUI,     ALT,     SFT,     CTL, XXXXXXX,                      XXXXXXX,     CTL,     SFT,     ALT,     GUI, XXXXXXX,
+      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      XXXXXXX,     CTL,     SFT,     ALT,     GUI, XXXXXXX,
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
-                                        KC_LGUI,   MO(3),  KC_SPC,     KC_ENT, _______, KC_RALT
+                                          XXXXXXX, XXXXXXX, XXXXXXX,     KC_ENT, XXXXXXX, XXXXXXX
                                       //`--------------------------'  `--------------------------'
   ),
+    [NUM_LY] = LAYOUT_split_3x6_3(
+  //,-----------------------------------------------------.                    ,-----------------------------------------------------.
+      XXXXXXX, KC_LBRC, KC_LCBR, KC_LPRN, KC_EXLM, XXXXXXX,                      XXXXXXX,  KC_EQL, KC_PSLS, KC_MINS, XXXXXXX, XXXXXXX,
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+        KC_LT,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                         KC_6,ALT_T(KC_7),SFT_T(KC_8),KC_9,  KC_0,     GUI,
+  //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
+      XXXXXXX,     GUI,     CTL,     SFT,     ALT, KC_AMPR,                      XXXXXXX, XXXXXXX, XXXXXXX, KC_PPLS, XXXXXXX, XXXXXXX,
+  //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
+                                           KC_DLR, XXXXXXX,  KC_TAB,    XXXXXXX, XXXXXXX, XXXXXXX
+                                      //`--------------------------'  `--------------------------'
+  )
+  /*
     [NUM_LY] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
       KC_PERC, KC_EQL, KC_PPLS, KC_MINS, KC_PSLS, KC_PAST,                       KC_DLR,    KC_5,    KC_6,    KC_7, XXXXXXX, XXXXXXX,
@@ -47,7 +59,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                           KC_LGUI, XXXXXXX,  KC_TAB,     KC_ENT, XXXXXXX, KC_RALT
                                       //`--------------------------'  `--------------------------'
   )
-/*
     [NUM_LY] = LAYOUT_split_3x6_3(
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
       KC_PERC, KC_EQL, KC_PPLS, KC_MINS, KC_PSLS, KC_PAST,                       KC_DLR,    KC_5,    KC_6,    KC_7, XXXXXXX, XXXXXXX,
@@ -93,5 +104,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           KC_LGUI, _______,  MO(0),     KC_ENT, _______, KC_RALT
                                       //`--------------------------'  `--------------------------'
-  )*/
+  )
+  */
 };

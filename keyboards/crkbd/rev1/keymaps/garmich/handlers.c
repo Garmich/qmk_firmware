@@ -108,6 +108,71 @@ bool process_normal(uint16_t keycode, keyrecord_t *record) {
         }
       }
       break;
+
+    case KC_LPRN:
+      if (record->event.pressed) {
+        if ((get_mods() & MOD_LSFT)) {
+          tap_code16(KC_RPRN);
+          return false;
+        }
+      }
+      break;
+
+    case KC_LCBR:
+      if (record->event.pressed) {
+        if ((get_mods() & MOD_LSFT)) {
+          tap_code16(KC_RCBR);
+          return false;
+        }
+      }
+      break;
+
+    case KC_LBRC:
+      if (record->event.pressed) {
+        if ((get_mods() & MOD_LSFT)) {
+          del_mods(MOD_LSFT);
+          tap_code16(KC_RBRC);
+          add_mods(MOD_LSFT);
+          return false;
+        }
+      }
+      break;
+
+    case KC_LT:
+      if (record->event.pressed) {
+        if ((get_mods() & MOD_LSFT)) {
+          tap_code16(KC_GT);
+          return false;
+        }
+      }
+      break;
+
+    case KC_EXLM:
+      if (record->event.pressed) {
+        if ((get_mods() & MOD_LSFT)) {
+          tap_code16(KC_QUES);
+          return false;
+        }
+      }
+      break;
+
+    case KC_AMPR:
+      if (record->event.pressed) {
+        if ((get_mods() & MOD_LSFT)) {
+          tap_code16(KC_PIPE);
+          return false;
+        }
+      }
+      break;
+
+    case KC_DLR:
+      if (record->event.pressed) {
+        if ((get_mods() & MOD_LSFT)) {
+          tap_code16(KC_HASH);
+          return false;
+        }
+      }
+      break;
   }
 
   return true;
