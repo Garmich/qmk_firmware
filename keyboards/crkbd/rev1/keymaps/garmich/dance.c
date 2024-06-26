@@ -1,15 +1,40 @@
 #include "quantum.h"
 #include "dance.h"
 
-// Tap Dance definitions
-tap_dance_action_t tap_dance_actions[] = {
-  [DOT] = ACTION_TAP_DANCE_DOUBLE(KC_DOT, KC_COLN),
-  [COM] = ACTION_TAP_DANCE_DOUBLE(KC_COMM, KC_SCLN)
-  // [TIL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, til_finished, til_reset),
-  // [GRV] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, grv_finished, grv_reset),
+void dot_finished(tap_dance_state_t *state, void *user_data);
+void dot_reset(tap_dance_state_t *state, void *user_data);
+void comma_finished(tap_dance_state_t *state, void *user_data);
+void comma_reset(tap_dance_state_t *state, void *user_data);
+
+typedef enum {
+    TD_NONE,
+    TD_UNKNOWN,
+    TD_SINGLE_TAP,
+    TD_SINGLE_HOLD,
+    TD_DOUBLE_TAP,
+    TD_DOUBLE_HOLD,
+    TD_DOUBLE_SINGLE_TAP,
+    TD_TRIPLE_TAP,
+    TD_TRIPLE_HOLD
+} td_state_t;
+
+typedef struct {
+    bool is_press_action;
+    td_state_t state;
+} td_tap_t;
+
+// Create an instance of 'td_tap_t' for the 'x' tap dance.
+static td_tap_t tap_state = {
+    .is_press_action = true,
+    .state = TD_NONE
 };
 
-/*
+// Tap Dance definitions
+tap_dance_action_t tap_dance_actions[] = {
+  [TD_DOT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dot_finished, dot_reset),
+  [TD_COMMA] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, comma_finished, comma_reset),
+};
+
 td_state_t cur_dance(tap_dance_state_t *state) {
     if (state->count == 1) {
         if (state->interrupted || !state->pressed) return TD_SINGLE_TAP;
@@ -26,57 +51,69 @@ td_state_t cur_dance(tap_dance_state_t *state) {
     } else return TD_UNKNOWN;
 }
 
-// Create an instance of 'td_tap_t' for the 'x' tap dance.
-static td_tap_t xtap_state = {
-    .is_press_action = true,
-    .state = TD_NONE
-};
+void comma_finished(tap_dance_state_t *state, void *user_data) {
+    tap_state.state  = cur_dance(state);
+    switch (tap_state.state) {
+        case TD_SINGLE_HOLD:
+            layer_on(GRV_LY);
+            break;
 
-void til_finished(tap_dance_state_t *state, void *user_data) {
-    td_state  = cur_dance(state);
-    switch (td_state) {
-        case TD_SINGLE_TAP: register_code(KC_X); break;
-        case TD_SINGLE_HOLD: register_code(KC_LCTL); break;
-        case TD_DOUBLE_TAP: register_code(KC_ESC); break;
-        case TD_DOUBLE_HOLD: register_code(KC_LALT); break;
-        case TD_DOUBLE_SINGLE_TAP: tap_code(KC_X); register_code(KC_X); break;
-        default: break;
+        case TD_SINGLE_TAP:
+            if (layer_state_is(GRV_LY)) {
+                grave = false;
+                layer_off(GRV_LY);
+            } else {
+                grave = true;
+                layer_on(GRV_LY);
+            }
+            break;
+
+        case TD_DOUBLE_TAP:
+            if (layer_state_is(DEF_LY)) {
+                grave = true;
+                layer_on(GRV_LY);
+            }
+            tap_code16(C(KC_C));
+            break;
+
+        default:
+            tap_code16(C(KC_C));
+            grave = true;
+            layer_on(GRV_LY);
+            break;
     }
 }
 
-void til_reset(tap_dance_state_t *state, void *user_data) {
-    switch (td_state) {
-        case TD_SINGLE_TAP: unregister_code(KC_X); break;
-        case TD_SINGLE_HOLD: unregister_code(KC_LCTL); break;
-        case TD_DOUBLE_TAP: unregister_code(KC_ESC); break;
-        case TD_DOUBLE_HOLD: unregister_code(KC_LALT); break;
-        case TD_DOUBLE_SINGLE_TAP: unregister_code(KC_X); break;
-        default: break;
+void comma_reset(tap_dance_state_t *state, void *user_data) {
+    // If the key was held down and now is released then switch off the layer
+    if (tap_state.state == TD_SINGLE_HOLD) {
+        layer_off(GRV_LY);
     }
-    // td_state = TD_NONE;
+    tap_state.state = TD_NONE;
 }
 
-void grv_finished(tap_dance_state_t *state, void *user_data) {
-    td_state = cur_dance(state);
-    switch (td_state) {
-        case TD_SINGLE_TAP: register_code(KC_X); break;
-        case TD_SINGLE_HOLD: register_code(KC_LCTL); break;
-        case TD_DOUBLE_TAP: register_code(KC_ESC); break;
-        case TD_DOUBLE_HOLD: register_code(KC_LALT); break;
-        case TD_DOUBLE_SINGLE_TAP: tap_code(KC_X); register_code(KC_X); break;
-        default: break;
+void dot_finished(tap_dance_state_t *state, void *user_data) {
+    tap_state.state  = cur_dance(state);
+    switch (tap_state.state) {
+        case TD_SINGLE_HOLD:
+            layer_on(TIL_LY);
+            break;
+
+        case TD_SINGLE_TAP:
+            tilde = true;
+            layer_on(TIL_LY);
+            break;
+        default:
+            tap_code(KC_COMM);
+            // tilde = true;
+            break;
     }
 }
 
-void grv_reset(tap_dance_state_t *state, void *user_data) {
-    switch (td_state) {
-        case TD_SINGLE_TAP: unregister_code(KC_X); break;
-        case TD_SINGLE_HOLD: unregister_code(KC_LCTL); break;
-        case TD_DOUBLE_TAP: unregister_code(KC_ESC); break;
-        case TD_DOUBLE_HOLD: unregister_code(KC_LALT); break;
-        case TD_DOUBLE_SINGLE_TAP: unregister_code(KC_X); break;
-        default: break;
+void dot_reset(tap_dance_state_t *state, void *user_data) {
+    // If the key was held down and now is released then switch off the layer
+    if (tap_state.state == TD_SINGLE_HOLD) {
+        layer_off(TIL_LY);
     }
-    // td_state = TD_NONE;
+    tap_state.state = TD_NONE;
 }
-*/

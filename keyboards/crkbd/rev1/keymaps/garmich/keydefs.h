@@ -1,30 +1,37 @@
 #pragma once
+#include "dance.h"
 
 enum layers{
-	BASE_LY = 0,
-  GAME_LY,
-	NAVI_LY,
+	DEF_LY = 0,
 	NUM_LY,
-	SYM_LY,
+	NAV_LY,
+	TIL_LY,
+	GRV_LY,
+  GAM_LY,
 };
 
 enum custom_keycodes {
   NULL_KEY = SAFE_RANGE,
   SWITCH,
-  LOW = KC_PGDN,
+  COMMA = TD(TD_COMMA),
+  DOT = TD(TD_DOT),
   TOP = KC_PGUP,
-  INI = C(KC_LEFT),
+  LOW = KC_PGDN,
+  HOM = C(KC_LEFT),
   END = C(KC_RIGHT),
-  TIL = OSM(MOD_LSFT),
-  GRV = OSM(MOD_RSFT),
-  SFT = OSM(MOD_LSFT),
+  LSFT = OSM(MOD_LSFT),
+  RSFT = OSM(MOD_RSFT),
   CTL = OSM(MOD_LCTL),
   ALT = OSM(MOD_LALT),
   GUI = OSM(MOD_LGUI),
+  JWIN = LGUI_T(KC_J),
+  FWIN = LGUI_T(KC_F),
+  NAV = LT(NAV_LY, KC_SPC),
+  NUM = LT(NUM_LY, KC_ENT),
+  GAME = TO(GAM_LY),
+  DEF = TO(DEF_LY),
+  EXIT = A(KC_F4),
 };
 
-
-static bool tilde = false;
 static bool grave = false;
-// static bool til_prs = false;
-// static bool grv_prs = false;
+static bool tilde = false;
