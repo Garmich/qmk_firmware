@@ -59,21 +59,8 @@ void comma_finished(tap_dance_state_t *state, void *user_data) {
             break;
 
         case TD_SINGLE_TAP:
-            if (layer_state_is(GRV_LY)) {
-                grave = false;
-                layer_off(GRV_LY);
-            } else {
-                grave = true;
-                layer_on(GRV_LY);
-            }
-            break;
-
-        case TD_DOUBLE_TAP:
-            if (layer_state_is(DEF_LY)) {
-                grave = true;
-                layer_on(GRV_LY);
-            }
-            tap_code16(C(KC_C));
+            grave = true;
+            layer_on(GRV_LY);
             break;
 
         default:
@@ -96,7 +83,7 @@ void dot_finished(tap_dance_state_t *state, void *user_data) {
     tap_state.state  = cur_dance(state);
     switch (tap_state.state) {
         case TD_SINGLE_HOLD:
-            layer_on(TIL_LY);
+            layer_on(NUM_LY);
             break;
 
         case TD_SINGLE_TAP:
@@ -113,7 +100,7 @@ void dot_finished(tap_dance_state_t *state, void *user_data) {
 void dot_reset(tap_dance_state_t *state, void *user_data) {
     // If the key was held down and now is released then switch off the layer
     if (tap_state.state == TD_SINGLE_HOLD) {
-        layer_off(TIL_LY);
+        layer_off(NUM_LY);
     }
     tap_state.state = TD_NONE;
 }

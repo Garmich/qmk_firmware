@@ -4,4 +4,5 @@ enum td_keycodes {
 	TDNULL = 0,
   TD_DOT,
   TD_COMMA,
+  TD_SWITCH,
 };

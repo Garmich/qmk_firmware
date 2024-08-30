@@ -68,24 +68,25 @@ bool process_record_tilde(uint16_t keycode, keyrecord_t *record, bool pressed) {
 
 bool process_record_grave(uint16_t keycode, keyrecord_t *record, bool pressed) {
   switch(keycode) {
-    case NAV:
-    case NUM:
     case KC_NO:
+    case KC_SPC:
+    case KC_BSPC:
       grave = false;
-      tap_code(KC_COMM);
       layer_off(GRV_LY);
+      tap_code(KC_COMM);
       break;
 
-    case KC_MINS:
-      if(!pressed) {
-        grave = false;
-        layer_off(GRV_LY);
-      }
+
+    case ALT:
+      grave = false;
+      layer_off(GRV_LY);
+      tap_code16(S(KC_GRV));
       break;
 
-    case DEF:
+    default:
       grave = false;
       break;
+
   }
 
   return true;
