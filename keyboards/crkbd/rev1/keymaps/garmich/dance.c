@@ -117,7 +117,7 @@ void sftc_finished(tap_dance_state_t *state, void *user_data) {
             break;
 
         default:
-            tap_code16(KC_No);
+            tap_code16(KC_N);
             break;
     }
 }
