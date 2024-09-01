@@ -5,6 +5,8 @@ void dot_finished(tap_dance_state_t *state, void *user_data);
 void dot_reset(tap_dance_state_t *state, void *user_data);
 void comma_finished(tap_dance_state_t *state, void *user_data);
 void comma_reset(tap_dance_state_t *state, void *user_data);
+void sftc_finished(tap_dance_state_t *state, void *user_data);
+void sftc_reset(tap_dance_state_t *state, void *user_data);
 
 typedef enum {
     TD_NONE,
@@ -31,8 +33,9 @@ static td_tap_t tap_state = {
 
 // Tap Dance definitions
 tap_dance_action_t tap_dance_actions[] = {
-  [TD_DOT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dot_finished, dot_reset),
   [TD_COMMA] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, comma_finished, comma_reset),
+  [TD_DOT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dot_finished, dot_reset),
+  [TD_SFT_CAPS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, sftc_finished, sftc_reset),
 };
 
 td_state_t cur_dance(tap_dance_state_t *state) {
@@ -55,18 +58,16 @@ void comma_finished(tap_dance_state_t *state, void *user_data) {
     tap_state.state  = cur_dance(state);
     switch (tap_state.state) {
         case TD_SINGLE_HOLD:
-            layer_on(GRV_LY);
+            layer_on(NUM_LY);
             break;
 
         case TD_SINGLE_TAP:
-            grave = true;
-            layer_on(GRV_LY);
+            set_oneshot_layer(NUM_LY, ONESHOT_START);
+            clear_oneshot_layer_state(ONESHOT_PRESSED);
             break;
 
         default:
-            tap_code16(C(KC_C));
-            grave = true;
-            layer_on(GRV_LY);
+            layer_on(NUM_LY);
             break;
     }
 }
@@ -74,7 +75,7 @@ void comma_finished(tap_dance_state_t *state, void *user_data) {
 void comma_reset(tap_dance_state_t *state, void *user_data) {
     // If the key was held down and now is released then switch off the layer
     if (tap_state.state == TD_SINGLE_HOLD) {
-        layer_off(GRV_LY);
+        layer_off(NUM_LY);
     }
     tap_state.state = TD_NONE;
 }
@@ -83,16 +84,15 @@ void dot_finished(tap_dance_state_t *state, void *user_data) {
     tap_state.state  = cur_dance(state);
     switch (tap_state.state) {
         case TD_SINGLE_HOLD:
-            layer_on(NUM_LY);
+            layer_on(TIL_LY);
             break;
 
         case TD_SINGLE_TAP:
-            tilde = true;
-            layer_on(TIL_LY);
+            set_oneshot_layer(TIL_LY, ONESHOT_START);
+            clear_oneshot_layer_state(ONESHOT_PRESSED);
             break;
         default:
-            tap_code(KC_COMM);
-            // tilde = true;
+            layer_on(TIL_LY);
             break;
     }
 }
@@ -100,7 +100,28 @@ void dot_finished(tap_dance_state_t *state, void *user_data) {
 void dot_reset(tap_dance_state_t *state, void *user_data) {
     // If the key was held down and now is released then switch off the layer
     if (tap_state.state == TD_SINGLE_HOLD) {
-        layer_off(NUM_LY);
+        layer_off(TIL_LY);
     }
+    tap_state.state = TD_NONE;
+}
+
+void sftc_finished(tap_dance_state_t *state, void *user_data) {
+    tap_state.state  = cur_dance(state);
+    switch (tap_state.state) {
+        case TD_SINGLE_HOLD:
+            add_mods(MOD_BIT(KC_LSFT));
+            break;
+
+        case TD_SINGLE_TAP:
+            add_oneshot_mods(MOD_BIT(KC_LSFT));
+            break;
+
+        default:
+            tap_code16(KC_No);
+            break;
+    }
+}
+
+void sftc_reset(tap_dance_state_t *state, void *user_data) {
     tap_state.state = TD_NONE;
 }

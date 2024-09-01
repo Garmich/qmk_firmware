@@ -6,7 +6,6 @@ enum layers{
 	NUM_LY,
 	NAV_LY,
 	TIL_LY,
-	GRV_LY,
   GAM_LY,
 };
 
@@ -19,19 +18,15 @@ enum custom_keycodes {
   LOW = KC_PGDN,
   HOM = C(KC_LEFT),
   END = C(KC_RIGHT),
-  LSFT = OSM(MOD_LSFT),
+  LSFT = TD(TD_SFT_CAPS),
+  // LSFT = OSM(MOD_LSFT),
   RSFT = OSM(MOD_RSFT),
   CTL = OSM(MOD_LCTL),
   ALT = OSM(MOD_LALT),
   GUI = OSM(MOD_LGUI),
-  JWIN = LGUI_T(KC_J),
-  FWIN = LGUI_T(KC_F),
   NAV1 = LT(NAV_LY, KC_SPC),
   NAV2 = LT(NAV_LY, KC_ENT),
   GAME = TO(GAM_LY),
   DEF = TO(DEF_LY),
   EXIT = A(KC_F4),
 };
-
-static bool grave = false;
-static bool tilde = false;

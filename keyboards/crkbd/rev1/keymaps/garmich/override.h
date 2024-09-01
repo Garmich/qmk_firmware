@@ -7,11 +7,11 @@ const key_override_t dot_ko = ko_make_with_layers_and_negmods(MOD_BIT(KC_LSFT), 
 // const key_override_t dot_ko_ = ko_make_with_layers_and_negmods(MOD_BIT(KC_RSFT), DOT, ALGR(KC_QUOT), ~0, MOD_MASK_CAG);
 
 
-const key_override_t bracket_ko = ko_make_with_layers_and_negmods(MOD_MASK_SHIFT, KC_RBRC, KC_LBRC, ~0, MOD_MASK_CAG);
+const key_override_t bracket_ko = ko_make_with_layers_and_negmods(MOD_MASK_SHIFT, KC_LBRC, KC_RBRC, ~0, MOD_MASK_CAG);
 
-const key_override_t parent_ko = ko_make_with_layers_and_negmods(MOD_MASK_SHIFT, KC_RPRN, KC_LPRN, ~0, MOD_MASK_CAG);
+const key_override_t parent_ko = ko_make_with_layers_and_negmods(MOD_MASK_SHIFT, KC_LPRN, KC_RPRN, ~0, MOD_MASK_CAG);
 
-const key_override_t brace_ko = ko_make_with_layers_and_negmods(MOD_MASK_SHIFT, KC_RCBR, KC_LCBR, ~0, MOD_MASK_CAG);
+const key_override_t brace_ko = ko_make_with_layers_and_negmods(MOD_MASK_SHIFT, KC_LCBR, KC_RCBR, ~0, MOD_MASK_CAG);
 
 
 const key_override_t slash_ko = ko_make_with_layers_and_negmods(MOD_MASK_SHIFT, KC_QUES, KC_PSLS, ~0, MOD_MASK_CAG);
@@ -45,7 +45,7 @@ const key_override_t nine_ko = ko_make_with_layers_and_negmods(MOD_MASK_SHIFT, K
 const key_override_t zero_ko = ko_make_with_layers_and_negmods(MOD_MASK_SHIFT, KC_0, KC_BSLS, ~0, MOD_MASK_CAG);
 
 
-const key_override_t delete_ko = ko_make_with_layers_and_negmods(MOD_MASK_CTRL, NAV, C(KC_BSPC), ~0, MOD_MASK_SAG);
+const key_override_t delete_ko = ko_make_with_layers_and_negmods(MOD_MASK_CTRL, NAV2, C(KC_BSPC), ~0, MOD_MASK_SAG);
 
 
 const key_override_t home_ko = {.trigger_mods           = MOD_MASK_AG,

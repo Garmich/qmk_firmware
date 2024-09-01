@@ -9,8 +9,8 @@ bool process_record_grave(uint16_t keycode, keyrecord_t *record, bool pressed);
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   bool pressed = record->event.pressed;
 
-  if (tilde && !process_record_tilde(keycode, record, pressed)) return false;
-  else if (grave && !process_record_grave(keycode, record, pressed)) return false;
+  if (IS_LAYER_ON(TIL_LY) && !process_record_tilde(keycode, record, pressed)) return false;
+  // else if (IS_LAYER_ON(GRV_LY) && !process_record_grave(keycode, record, pressed)) return false;
 
   switch (keycode) {
     case SWITCH:
@@ -27,19 +27,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case KC_DQUO:
       if (!pressed) tap_code(KC_SPC);
       break;
-
-    case KC_A:
-    case KC_E:
-    case KC_I:
-    case KC_O:
-    case KC_U:
-    case KC_C:
-      if (pressed && IS_LAYER_ON(TIL_LY)) tap_code16(KC_QUOT);
-      break;
-
-    case KC_N:
-      if (pressed && IS_LAYER_ON(TIL_LY)) tap_code16(S(KC_GRV));
-      break;
   }
 
   return true;
@@ -47,8 +34,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 bool process_record_tilde(uint16_t keycode, keyrecord_t *record, bool pressed) {
   switch(keycode) {
-    case NAV:
-    case NUM:
+    case KC_A:
+    case KC_E:
+    case KC_I:
+    case KC_O:
+    case KC_U:
+    case KC_C:
+      if (pressed) tap_code16(KC_QUOT);
+      break;
+
+    case KC_N:
+      if (pressed) tap_code16(S(KC_GRV));
+      break;
+
+/*
+    case NAV1:
+    case NAV2:
     case KC_NO:
       tilde = false;
       tap_code(KC_DOT);
@@ -61,6 +62,7 @@ bool process_record_tilde(uint16_t keycode, keyrecord_t *record, bool pressed) {
         layer_off(TIL_LY);
       }
       break;
+*/
   }
 
   return true;
@@ -68,7 +70,7 @@ bool process_record_tilde(uint16_t keycode, keyrecord_t *record, bool pressed) {
 
 bool process_record_grave(uint16_t keycode, keyrecord_t *record, bool pressed) {
   switch(keycode) {
-    case KC_NO:
+/*     case KC_NO:
     case KC_SPC:
     case KC_BSPC:
       grave = false;
@@ -86,7 +88,7 @@ bool process_record_grave(uint16_t keycode, keyrecord_t *record, bool pressed) {
     default:
       grave = false;
       break;
-
+ */
   }
 
   return true;
