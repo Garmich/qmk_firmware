@@ -22,7 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define MASTER_LEFT
 
-#define ONESHOT_TAP_TOGGLE 5  /* Tapping this number of times holds the key until tapped once again. */
+#define ONESHOT_TAP_TOGGLE 2  /* Tapping this number of times holds the key until tapped once again. */
 #define ONESHOT_TIMEOUT 8000  /* Time (in ms) before the one shot key is released */
 #define TAPPING_TOGGLE 1
 // #define TAPPING_TERM 130

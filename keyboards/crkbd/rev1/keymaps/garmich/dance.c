@@ -1,12 +1,10 @@
 #include "quantum.h"
 #include "dance.h"
 
-void dot_finished(tap_dance_state_t *state, void *user_data);
-void dot_reset(tap_dance_state_t *state, void *user_data);
-void comma_finished(tap_dance_state_t *state, void *user_data);
-void comma_reset(tap_dance_state_t *state, void *user_data);
-void sftc_finished(tap_dance_state_t *state, void *user_data);
-void sftc_reset(tap_dance_state_t *state, void *user_data);
+void num_osl_finished(tap_dance_state_t *state, void *user_data);
+void num_osl_reset(tap_dance_state_t *state, void *user_data);
+void nav_osl_finished(tap_dance_state_t *state, void *user_data);
+void nav_osl_reset(tap_dance_state_t *state, void *user_data);
 
 typedef enum {
     TD_NONE,
@@ -33,9 +31,8 @@ static td_tap_t tap_state = {
 
 // Tap Dance definitions
 tap_dance_action_t tap_dance_actions[] = {
-  [TD_COMMA] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, comma_finished, comma_reset),
-  [TD_DOT] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dot_finished, dot_reset),
-  [TD_SFT_CAPS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, sftc_finished, sftc_reset),
+  [TD_NAV_OSL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, nav_osl_finished, nav_osl_reset),
+  [TD_NUM_OSL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, num_osl_finished, num_osl_reset),
 };
 
 td_state_t cur_dance(tap_dance_state_t *state) {
@@ -54,13 +51,32 @@ td_state_t cur_dance(tap_dance_state_t *state) {
     } else return TD_UNKNOWN;
 }
 
-void comma_finished(tap_dance_state_t *state, void *user_data) {
+void nav_osl_finished(tap_dance_state_t *state, void *user_data) {
     tap_state.state  = cur_dance(state);
     switch (tap_state.state) {
-        case TD_SINGLE_HOLD:
-            layer_on(NUM_LY);
+        case TD_SINGLE_TAP:
+            set_oneshot_layer(NAV_LY, ONESHOT_START);
+            clear_oneshot_layer_state(ONESHOT_PRESSED);
             break;
 
+        default:
+            layer_on(NAV_LY);
+            break;
+    }
+}
+
+void nav_osl_reset(tap_dance_state_t *state, void *user_data) {
+    // If the key was held down and now is released then switch off the layer
+    if (tap_state.state != TD_SINGLE_TAP) {
+        layer_off(NAV_LY);
+    }
+
+    tap_state.state = TD_NONE;
+}
+
+void num_osl_finished(tap_dance_state_t *state, void *user_data) {
+    tap_state.state  = cur_dance(state);
+    switch (tap_state.state) {
         case TD_SINGLE_TAP:
             set_oneshot_layer(NUM_LY, ONESHOT_START);
             clear_oneshot_layer_state(ONESHOT_PRESSED);
@@ -72,56 +88,11 @@ void comma_finished(tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void comma_reset(tap_dance_state_t *state, void *user_data) {
+void num_osl_reset(tap_dance_state_t *state, void *user_data) {
     // If the key was held down and now is released then switch off the layer
-    if (tap_state.state == TD_SINGLE_HOLD) {
+    if (tap_state.state != TD_SINGLE_TAP) {
         layer_off(NUM_LY);
     }
-    tap_state.state = TD_NONE;
-}
 
-void dot_finished(tap_dance_state_t *state, void *user_data) {
-    tap_state.state  = cur_dance(state);
-    switch (tap_state.state) {
-        case TD_SINGLE_HOLD:
-            layer_on(TIL_LY);
-            break;
-
-        case TD_SINGLE_TAP:
-            set_oneshot_layer(TIL_LY, ONESHOT_START);
-            clear_oneshot_layer_state(ONESHOT_PRESSED);
-            break;
-        default:
-            layer_on(TIL_LY);
-            break;
-    }
-}
-
-void dot_reset(tap_dance_state_t *state, void *user_data) {
-    // If the key was held down and now is released then switch off the layer
-    if (tap_state.state == TD_SINGLE_HOLD) {
-        layer_off(TIL_LY);
-    }
-    tap_state.state = TD_NONE;
-}
-
-void sftc_finished(tap_dance_state_t *state, void *user_data) {
-    tap_state.state  = cur_dance(state);
-    switch (tap_state.state) {
-        case TD_SINGLE_HOLD:
-            add_mods(MOD_BIT(KC_LSFT));
-            break;
-
-        case TD_SINGLE_TAP:
-            add_oneshot_mods(MOD_BIT(KC_LSFT));
-            break;
-
-        default:
-            tap_code16(KC_N);
-            break;
-    }
-}
-
-void sftc_reset(tap_dance_state_t *state, void *user_data) {
     tap_state.state = TD_NONE;
 }
