@@ -1,11 +1,12 @@
 #pragma once
 
-#include "customKeys.h"
+#include "keys.h"
 
-// bool process_record_oneshot(uint16_t keycode, keyrecord_t *record);
+/*
+bool process_record_oneshot(uint16_t keycode, keyrecord_t *record);
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  // if (is_oneshot_layer_active() && !process_record_oneshot(keycode, record)) return false;
+  if (is_oneshot_layer_active() && !process_record_oneshot(keycode, record)) return false;
 
   switch(keycode) {
     case KC_TILD:
@@ -19,7 +20,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   return true;
 }
-/*
+
 void matrix_scan_user(void) {
   if (get_highest_layer(layer_state) == ALP_LY) {
     if(last_input_activity_elapsed() > NUM_LAYER_TIMEOUT) {
@@ -47,7 +48,7 @@ bool process_record_oneshot(uint16_t keycode, keyrecord_t *record) {
         }
       }
       break;
-  }
+    }
   return true;
 }
-  */
+*/

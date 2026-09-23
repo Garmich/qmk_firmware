@@ -15,11 +15,14 @@ LEADER_ENABLE = no
 MIDI_ENABLE = no            # MIDI controls
 NKRO_ENABLE = no            # Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 RGBLIGHT_ENABLE = no       # Enable WS2812 RGB underlight.
+
+
+CAPS_WORD_ENABLE = no
+LAYER_LOCK_ENABLE = no
+TAP_DANCE_ENABLE = no			 # Tap dance(+2000)
 MOUSEKEY_ENABLE = yes       # Mouse keys(+4700)
-CAPS_WORD_ENABLE = yes
-LAYER_LOCK_ENABLE = yes
 KEY_OVERRIDE_ENABLE = yes			 # Tap dance(+2000)
-TAP_DANCE_ENABLE = yes			 # Tap dance(+2000)
+
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
 SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 UNICODE_ENABLE = no         # Unicode

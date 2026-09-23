@@ -9,15 +9,6 @@ enum {
 	GAM_LY,
 };
 
-enum {
-    A_FN = 0,
-    E_FN,
-    I_FN,
-    O_FN,
-    U_FN,
-    N_FN,
-};
-
 typedef enum {
     HOLD_IS_MOD,
     HOLD_IS_LAYER,

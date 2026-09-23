@@ -1,45 +1,36 @@
 #pragma once
 
-#include "dances.h"
+#include "enums.h"
 
-enum custom_keycodes {
-  NULL_KEY =  SAFE_RANGE,
-  SPCL     =  LT(NUM_LY, KC_SPC),
-  ENTL     =  LT(SYM_LY, KC_ENT),
-  SHFT     =  OSM(MOD_LSFT),
-  CTRL     =  OSM(MOD_LCTL),
-  ALTR     =  OSM(MOD_LALT),
-  GUIW     =  OSM(MOD_LGUI),
+//  Alias para Layer-Taps
+#define SPCL     LT(NAV_LY, KC_SPC)
+#define ENTL     LT(SYM_LY, KC_ENT)
+#define TABL     LT(NUM_LY, KC_TAB)
+#define QUTL     LT(MOU_LY, KC_QUOT)
 
+// Alias para One-Shot Modifiers
+#define SHFT     OSM(MOD_LSFT)
+#define CTRL     OSM(MOD_LCTL)
+#define ALTR     OSM(MOD_LALT)
+#define LWIN     OSM(MOD_LGUI)
 
-  MT_S     =  LSFT_T(KC_S),
-  MT_U     =  LCTL_T(KC_U),
-  MT_R     =  LALT_T(KC_R),
-  MT_T     =  LGUI_T(KC_T),
+// Alias para Mod-Taps
+#define MT_LT    LSFT_T(KC_LT)
+#define MT_GT    LCTL_T(KC_GT)
+#define MT_EXLM  LALT_T(KC_EXLM)
+#define MT_EQL   LGUI_T(KC_EQL)
 
-  MT_N     =  RSFT_T(KC_N),
-  MT_C     =  RCTL_T(KC_C),
-  MT_I     =  LALT_T(KC_I),
-  MT_O     =  RGUI_T(KC_O),
+#define MT_LBRC  LGUI_T(KC_LBRC)
+#define MT_PSLS  LALT_T(KC_PSLS)
+#define MT_LCBR  LCTL_T(KC_LCBR)
+#define MT_LPRN  LSFT_T(KC_LPRN)
 
-  LT_A     =  LT(NAV_LY, KC_A),
-  LT_E     =  LT(MOU_LY, KC_E),
+#define MT_RPRN  LSFT_T(KC_RPRN)
+#define MT_RCBR  LCTL_T(KC_RCBR)
+#define MT_BSLS  LALT_T(KC_BSLS)
+#define MT_RBRC  LGUI_T(KC_RBRC)
 
-
-  MT_LT    =  LGUI_T(KC_LT),
-  MT_LBRC  =  LALT_T(KC_LBRC),
-  MT_LCBR  =  LSFT_T(KC_LCBR),
-  MT_LPRN  =  LCTL_T(KC_LPRN),
-  MT_RPRN  =  RCTL_T(KC_RPRN),
-  MT_RCBR  =  RSFT_T(KC_RCBR),
-  MT_RBRC  =  LALT_T(KC_RBRC),
-  MT_GT    =  RGUI_T(KC_GT),
-
-
-  TD_A     =  TD(A_FN),
-  TD_E     =  TD(E_FN),
-  TD_I     =  TD(I_FN),
-  TD_O     =  TD(O_FN),
-  TD_U     =  TD(U_FN),
-  TD_N     =  TD(N_FN),
-};
+// Alias para Custom Keys
+#define KVM      MEH(KC_DOT)
+#define CK_QUES  RALT(KC_QUES)
+#define CK_GRV  RALT(KC_QUOT)
